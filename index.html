@@ -56,12 +56,12 @@
           canvasElm.width = results.image.width * 2;
           canvasElm.height = results.image.height * 2;
         }
-        canvasCtx.save();
+        canvasCtx.save(); // 描画状態を保存
         // 描画内容をクリア
         canvasCtx.clearRect(0, 0, canvasElm.width, canvasElm.height);
         // カメラ画像(results.image)をcanvasのサイズに引き伸ばして描画
         canvasCtx.drawImage(results.image, 0, 0, canvasElm.width, canvasElm.height);
-        canvasCtx.restore();
+        canvasCtx.restore(); // 描画状態を復元
       };
     </script>
   </head>
