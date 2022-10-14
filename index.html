@@ -9,9 +9,11 @@
     <!--selfie segmentationの読み込み-->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>  
     <script type="text/javascript">
-      let videoElm ;
-      let canvasElm;
-      let canvasCtx;    
+      let videoElm ;  // video要素(input_video)
+      let canvasElm;  // canvas要素(output_canvas)
+      let canvasCtx;  // canvas描画に関する情報
+      let cvCanvasElm;// OpenCVで使う画像を表示
+      let cvCanvasCtx;// cVCanvasElmの描画に関する情報
       let initialized=false;
       //初期化
       window.onload = function() {
@@ -21,6 +23,9 @@
         canvasElm = document.getElementById('output_canvas');
         //Canvas描画に関する情報にアクセス
         canvasCtx = canvasElm.getContext('2d');
+        //opencv処理結果用のCanvasと描画に関する情報を取得
+        cvCanvasElm = document.getElementById('opencv_canvas');
+        cvCanvasCtx = cvCanvasElm.getContext('2d');
         
         //Segmentationを使用するための関連ファイルの取得と初期化
         let selfieSegmentation = new SelfieSegmentation({locateFile: (file) => {
@@ -55,7 +60,12 @@
           // canvasのサイズは入力画像の2倍（お好きなサイズでどうぞ）
           canvasElm.width = results.image.width * 2;
           canvasElm.height = results.image.height * 2;
+          // 入力画像と同じサイズのcanvasを用意
+          cvCanvsElm.width = results.image.width;
+          cvCanvasElm.height = results.image.height;
         }
+        // OpenCVを使った画像処理を行う関数
+        cvFilter(results);
         canvasCtx.save(); // 描画状態を保存
         // 描画内容をクリア
         canvasCtx.clearRect(0, 0, canvasElm.width, canvasElm.height);
@@ -72,6 +82,12 @@
         canvasCtx.drawImage(results.image, 0, 0, canvasElm.width, canvasElm.height);
         
         canvasCtx.restore(); // 描画状態を復元
+      };
+      
+      // OpenCVを使った画像処理を行う関数の実装
+      function cvFilter(results){
+        // 入力画像をOpenCV用のcanvasに表示
+        cvCanvasCtx.drawImage(results.image, 0,0);
       };
     </script>
   </head>
