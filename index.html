@@ -101,7 +101,7 @@
           new Uint8ClampedArray(dst.data, dst.cols, dst.rows),
           dst.cols, dst.rows);
         //画像を描画
-        cvCanvasCtX.putImageData(imgData, 0, 0);
+        cvCanvasCtx.putImageData(imgData, 0, 0);
         //Matのメモリを解放
         src.delete();dst.delete();
         
