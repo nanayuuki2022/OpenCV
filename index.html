@@ -94,6 +94,8 @@
         let dst = new cv.Mat();
         //カラー画像をグレースケール画像に変換
         cv.cvtColor(src, dst, cv.COLOR_RGB2GRAY, 0);
+        // Cannyフィルタを用いたエッジ検出
+        cv.Canny(dst, dst, 50, 90, 3,false);
         //canvasでの表示のためカラー形式に戻す(見た目はグレーのまま)
         cv.cvtColor(dst, dst, cv.COLOR_GRAY2RGBA);
         //Matをcanvasで描画できるフォーマットに変換
