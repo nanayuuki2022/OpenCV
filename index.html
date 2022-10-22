@@ -97,7 +97,7 @@
         //カラー画像をグレースケール画像に変換
         cv.cvtColor(src, dst, cv.COLOR_RGB2GRAY, 0);
         // Cannyフィルタを用いたエッジ検出
-        cv.Canny(dst, dst, 50, 90, 3,false);
+        cv.Canny(dst, dst, 50, 90, 5,false);
         // 白黒反転
         cv.bitwise_not(dst, dst);
         //canvasでの表示のためカラー形式に戻す(見た目はグレーのまま)
